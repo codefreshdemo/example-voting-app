@@ -37,3 +37,37 @@ Note
 ----
 
 The voting application only accepts one vote per client. It does not register votes if a vote has already been submitted from a client.
+
+Deploy to Remote Swarm
+----
+
+Codefresh Docker CI/CD service is able to deply the voting application to specified remote swarm cluster.
+
+Add following step to your `codefresh.yml`
+
+```
+version: '1.0'
+
+steps:
+
+...
+
+  deploy_to_swarm:
+    image: codefresh/remote-docker
+    working_directory: ${{main_clone}}
+    commands:
+      - rdocker ${{RDOCKER_HOST}} docker stack deploy --compose-file docker-stack.yml ${{STACK_NAME}}
+    environment:
+      - SSH_KEY=${SSH_KEY}
+    when:
+      branch:
+        only:
+          - master
+
+```
+
+Where:
+
+- `RDOCKER_HOST` - remote Docker swarm master machine, accessible over SSH (for example, ubuntu@ec2-public-ip)
+- `STACK_NAME` - is new Docker stack name (use "vote", for example)
+- `SSH_KEY` - private SSH key, used to access Docker swarm master machine
