@@ -71,3 +71,10 @@ Where:
 - `RDOCKER_HOST` - remote Docker swarm master machine, accessible over SSH (for example, ubuntu@ec2-public-ip)
 - `STACK_NAME` - is new Docker stack name (use "vote", for example)
 - `SSH_KEY` - private SSH key, used to access Docker swarm master machine
+- `SPLIT_CHAR` - split character, you've used to replace `newline` in SSH key. Recommendation: use `,` (`comma` character).
+
+#### Passing SSH key through ENV variable
+
+Currently in order to pass SSH key through Codefresh UI, you need to convert it to single line string (replacing `newline` with `comma`), like this:
+
+    $ SSH_KEY=$(cat ~/.ssh/my_ssh_key_file | tr '\n' ',')
