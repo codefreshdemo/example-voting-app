@@ -2,7 +2,7 @@ version: '1.0'
 steps:
 
   deploy_to_swarm:
-    image: ncodefresh/remote-docker:ssh-tunnel
+    image: codefresh/remote-docker
     working_directory: ${{main_clone}}
     commands:
       - rdocker ${{RDOCKER_HOST}} docker stack deploy --compose-file docker-stack.yml ${{STACK_NAME}}
