@@ -5,7 +5,8 @@ steps:
     image: ncodefresh/remote-docker:ssh-tunnel
     working_directory: ${{main_clone}}
     commands:
-      - rdocker docker stack deploy --compose-file docker-stack.yml ${{STACK_NAME}}
+      - rdocker
+      - docker stack deploy --compose-file docker-stack.yml ${{STACK_NAME}}
     environment:
       - RDOCKER_HOST=${{RDOCKER_HOST}}
       - SSH_KEY=${{SSH_KEY}}
